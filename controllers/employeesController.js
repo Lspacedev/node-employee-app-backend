@@ -61,9 +61,18 @@ async function addEmployee(req, res) {
       date,
       pic: imageUrl,
     };
-    const result = await db.collection("employees").doc(id).set(data);
-  } catch (err) {}
-  res.send("success");
+    const docRef = db.collection("employees").doc(id);
+    const docSnap = await docRef.get();
+
+    if (docSnap.exists) {
+      return res.send({ err: "Employee exists" });
+    } else {
+      const result = await db.collection("employees").doc(id).set(data);
+      return res.send({ message: "Employee succesfully added" });
+    }
+  } catch (err) {
+    return res.send({ err: err.message });
+  }
 }
 
 async function updateEmployee(req, res) {
