@@ -77,6 +77,7 @@ async function addEmployee(req, res) {
 
 async function updateEmployee(req, res) {
   const { id } = req.params;
+
   const { name, surname, email, department, position, phone, date } = req.body;
   if (JSON.stringify(req.body) === "{}" && typeof req.file === "undefined") {
     return res.send("Must have atleast one field to update");
@@ -98,6 +99,7 @@ async function updateEmployee(req, res) {
         expires: "03-09-2491",
       });
       updateObj.pic = imageUrl;
+      // console.log({ imageUrl });
       // Remove file from /tmp folder after it has been uploaded
       fs.unlink("./tmp/" + req.file.filename, (err) => {
         if (err) {
@@ -133,10 +135,10 @@ async function updateEmployee(req, res) {
     try {
       const result = await db.collection("employees").doc(id).update(updateObj);
     } catch (err) {
-      console.log(err);
+      return res.send({ err: err.message });
     }
   }
-  res.send("success");
+  res.send({ message: "Employee updated succesfully" });
 }
 
 async function deleteEmployee(req, res) {
@@ -149,7 +151,7 @@ async function deleteEmployee(req, res) {
   } catch (err) {
     console.log(err);
   }
-  res.send("Delete success");
+  res.send({ message: "Employee deleted succesfully" });
 }
 
 module.exports = {
