@@ -45,7 +45,7 @@ async function postLogin(req, res) {
             return res.send({ err: "Invalid password" });
           } else {
             const uid = uuidv4();
-
+            const userId = doc.id;
             // admin
             //   .createCustomToken(uid)
             //   .then((customToken) => {
