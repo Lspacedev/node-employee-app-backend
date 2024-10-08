@@ -27,44 +27,27 @@ async function postRegister(req, res) {
     });
 }
 async function postLogin(req, res) {
-  const { email, password } = req.body;
-  //verifiy user
-  const userSnapshot = db
-    .collection("users")
-    .where("email", "==", email)
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-        if (doc.id === "") {
-          return res.send({ err: "User not found" });
-        } else {
-          const user = doc.data();
-          if (user.password !== password) {
-            return res.send({ err: "Invalid password" });
-          } else {
-            const uid = uuidv4();
-            const userId = doc.id;
-            // admin
-            //   .createCustomToken(uid)
-            //   .then((customToken) => {
-            //     console.log(customToken);
-            //     // Send token back to client
-            //   })
-            //   .catch((error) => {
-            //     console.log("Error creating custom token:", error);
-            //   });
-            return res.send({ message: "Login success" });
-          }
-        }
-      });
-    })
-    .catch((error) => {
-      console.log("Error getting documents: ", error);
-    });
+  const idToken = req.body.idToken.toString();
 
-  // admin.auth().createCustomToken(uid)
+  const expiresIn = 60 * 60 * 24 * 5 * 1000;
+
+  admin
+    .auth()
+    .createSessionCookie(idToken, { expiresIn })
+    .then(
+      (sessionCookie) => {
+        const options = { maxAge: expiresIn, httpOnly: true };
+        res.cookie("session", sessionCookie, options);
+        res.end(JSON.stringify({ status: "success" }));
+      },
+      (error) => {
+        res.status(401).send("UNAUTHORIZED REQUEST!");
+      }
+    );
+}
+function logout(req, res) {
+  res.clearCookie("session");
+  //res.redirect("/login");
 }
 
 module.exports = {

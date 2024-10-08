@@ -1,9 +1,10 @@
 const { Router } = require("express");
 const employeesRouter = Router();
 const employeesController = require("../controllers/employeesController");
+const authenticateUser = require("../middleware/authentication");
 const upload = require("../middleware/multerUpload");
 
-employeesRouter.get("/", employeesController.getAllEmployees);
+employeesRouter.get("/", authenticateUser, employeesController.getAllEmployees);
 employeesRouter.get("/:id", employeesController.getEmployeeByID);
 
 employeesRouter.post(
