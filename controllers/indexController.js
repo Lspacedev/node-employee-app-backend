@@ -29,7 +29,7 @@ async function postRegister(req, res) {
 async function postLogin(req, res) {
   const idToken = req.body.idToken.toString();
 
-  const expiresIn = 60 * 60 * 24 * 5 * 1000;
+  const expiresIn = 60 * 6 * 1000;
 
   admin
     .auth()
@@ -37,6 +37,7 @@ async function postLogin(req, res) {
     .then(
       (sessionCookie) => {
         const options = { maxAge: expiresIn, httpOnly: true };
+
         res.cookie("session", sessionCookie, options);
         res.end(JSON.stringify({ status: "success" }));
       },
@@ -47,10 +48,11 @@ async function postLogin(req, res) {
 }
 function logout(req, res) {
   res.clearCookie("session");
-  //res.redirect("/login");
+  res.send({ status: "logged out" });
 }
 
 module.exports = {
   postRegister,
   postLogin,
+  logout,
 };

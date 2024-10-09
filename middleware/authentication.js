@@ -1,18 +1,18 @@
 const { admin } = require("../config/firebase-admin");
 const authenticateUser = (req, res, next) => {
-  const idToken = req.headers.authorization;
+  const sessionCookie = req.cookies.session || "";
 
   admin
     .auth()
-    .verifyIdToken(idToken)
-    .then((decodedToken) => {
-      req.user = decodedToken;
-      next();
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then((decodedClaims) => {
+      //serveContentForUser("/profile", req, res, decodedClaims);
     })
     .catch((error) => {
-      console.log("Error verifying ID token:", error);
-      res.status(401).json({ error: "Invalid token" });
+      // Session cookie is unavailable or invalid. Force user to login.
+      res.redirect("/login");
     });
+  next();
 };
 
-module.exports = { authenticateUser };
+module.exports = authenticateUser;
