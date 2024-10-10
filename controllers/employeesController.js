@@ -10,9 +10,9 @@ async function getAllEmployees(req, res) {
       employees.push({ docId: doc.id, ...doc.data() });
     });
   } catch (err) {
-    console.log(err);
+    return res.send({ err: err.message });
   }
-  res.send(employees);
+  return res.send(employees);
 }
 function getEmployeeByID(req, res) {
   const { id } = req.params;

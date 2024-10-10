@@ -3,7 +3,6 @@ const { v4: uuidv4 } = require("uuid");
 
 async function postRegister(req, res) {
   const { email, password } = req.body;
-
   admin
     .auth()
     .createUser({
@@ -14,7 +13,6 @@ async function postRegister(req, res) {
       const result = await db.collection("users").doc(userRecord.uid).set({
         userId: userRecord.uid,
         email: email,
-        password: password,
       });
 
       console.log("Successfully created new user:", userRecord.uid);
@@ -36,7 +34,7 @@ async function postLogin(req, res) {
     .createSessionCookie(idToken, { expiresIn })
     .then(
       (sessionCookie) => {
-        const options = { maxAge: expiresIn, httpOnly: true };
+        const options = { maxAge: expiresIn, httpOnly: true, secure: true };
 
         res.cookie("session", sessionCookie, options);
         res.end(JSON.stringify({ status: "success" }));
@@ -51,8 +49,13 @@ function logout(req, res) {
   res.send({ status: "logged out" });
 }
 
+function getLogout(req, res) {
+  res.send({ message: "Session is expired" });
+}
+
 module.exports = {
   postRegister,
   postLogin,
+  getLogout,
   logout,
 };
