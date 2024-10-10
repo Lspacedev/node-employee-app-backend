@@ -3,7 +3,7 @@ const indexRouter = Router();
 const indexController = require("../controllers/indexController");
 const authenticateUser = require("../middleware/authentication");
 
-indexRouter.get("/csrf", (req, res) => {
+indexRouter.get("/", (req, res) => {
   res.send({ status: "success" });
 });
 indexRouter.post("/register", indexController.postRegister);
