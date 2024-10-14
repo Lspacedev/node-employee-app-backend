@@ -5,21 +5,31 @@ const authenticateUser = require("../middleware/authentication");
 const upload = require("../middleware/multerUpload");
 
 employeesRouter.get("/", authenticateUser, employeesController.getAllEmployees);
-employeesRouter.get("/:id", employeesController.getEmployeeByID);
+employeesRouter.get(
+  "/:id",
+  authenticateUser,
+  employeesController.getEmployeeByID
+);
 
 employeesRouter.post(
   "/",
+  authenticateUser,
   upload.single("pic"),
   employeesController.addEmployee
 );
 
 employeesRouter.put(
   "/:id",
+  authenticateUser,
   upload.single("pic"),
   employeesController.updateEmployee
 );
 
-employeesRouter.delete("/:id", employeesController.deleteEmployee);
+employeesRouter.delete(
+  "/:id",
+  authenticateUser,
+  employeesController.deleteEmployee
+);
 employeesRouter.use("*", (req, res) => {
   res.end("Error, route does not exist");
 });
