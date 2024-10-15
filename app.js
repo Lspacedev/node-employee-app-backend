@@ -18,7 +18,7 @@ app.use(
 app.use(cookieParser());
 const csrfProtection = csurf({ cookie: true });
 app.use(csrfProtection);
-app.get("*", (req, res, next) => {
+app.all("*", (req, res, next) => {
   res.cookie("XSRF-TOKEN", req.csrfToken());
 
   next();

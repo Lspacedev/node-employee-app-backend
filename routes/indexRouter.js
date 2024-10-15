@@ -7,6 +7,7 @@ indexRouter.get("/", (req, res) => {
   res.send({ status: "success" });
 });
 indexRouter.post("/register", indexController.postRegister);
+indexRouter.get("/admins", authenticateUser, indexController.getAdmins);
 indexRouter.post("/admins", authenticateUser, indexController.postRegister);
 indexRouter.get("/login", indexController.getLogout);
 indexRouter.post("/login", indexController.postLogin);

@@ -52,10 +52,24 @@ function logout(req, res) {
 function getLogout(req, res) {
   res.send({ message: "Session is expired" });
 }
+async function getAdmins(req, res) {
+  let admins = [];
+  try {
+    const adminsRef = db.collection("users");
+    const snapshot = await adminsRef.get();
 
+    snapshot.forEach((doc) => {
+      admins.push({ docId: doc.id, ...doc.data() });
+    });
+  } catch (err) {
+    return res.send({ err: err.message });
+  }
+  return res.send(admins);
+}
 module.exports = {
   postRegister,
   postLogin,
   getLogout,
   logout,
+  getAdmins,
 };
