@@ -27,14 +27,19 @@ async function postRegister(req, res) {
 async function postLogin(req, res) {
   const idToken = req.body.idToken.toString();
 
-  const expiresIn = 60 * 6 * 1000;
+  const expiresIn = 60 * 5 * 1000;
 
   admin
     .auth()
     .createSessionCookie(idToken, { expiresIn })
     .then(
       (sessionCookie) => {
-        const options = { maxAge: expiresIn, httpOnly: true, secure: true };
+        const options = {
+          maxAge: expiresIn,
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+        };
 
         res.cookie("session", sessionCookie, options);
         res.end(JSON.stringify({ status: "success" }));
