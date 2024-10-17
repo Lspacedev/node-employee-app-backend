@@ -42,7 +42,7 @@ async function postLogin(req, res) {
         };
 
         res.cookie("session", sessionCookie, options);
-        res.end(JSON.stringify({ status: "success" }));
+       res.end(JSON.stringify({ status: "success" }));
       },
       (error) => {
         res.status(401).send("UNAUTHORIZED REQUEST!");

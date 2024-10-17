@@ -10,10 +10,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: true, //included origin as true
+    origin: true,//included origin as true
     credentials: true,
   })
 );
+
 app.all("*", (req, res, next) => {
   console.log(req.headers);
 
@@ -21,14 +22,17 @@ app.all("*", (req, res, next) => {
 });
 app.use(cookieParser());
 const csrfProtection = csurf({
-  cookie: true,
+  cookie: {
+    sameSite: false,
+    secure: true
+  }
 });
 app.use(csrfProtection);
-app.all("*", (req, res, next) => {
-  res.cookie("XSRF-TOKEN", req.csrfToken());
+// app.all("*", (req, res, next) => {
+//   res.cookie("XSRF-TOKEN", req.csrfToken(),  { sameSite: 'none', secure: true});
 
-  next();
-});
+//   next();
+// });
 
 app.use("/", indexRouter);
 app.use("/employees", employeesRouter);
