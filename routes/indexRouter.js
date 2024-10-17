@@ -4,11 +4,12 @@ const indexController = require("../controllers/indexController");
 const authenticateUser = require("../middleware/authentication");
 
 indexRouter.get("/", (req, res) => {
-  const token = req.csrfToken();
-    res.cookie("XSRF-TOKEN", req.csrfToken(),  { sameSite: 'none', secure: true});
+  
+
+    res.cookie("XSRF-TOKEN", req.csrfToken(),  { httpOnly:true,sameSite: 'none', secure: true});
 
 
-res.send({ csrfToken: token
+res.send({ csrfToken: req.csrfToken()
 
    })
 });

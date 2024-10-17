@@ -5,6 +5,7 @@ const indexRouter = require("./routes/indexRouter");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const csurf = require("csurf");
+const { none } = require("./middleware/multerUpload");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -23,9 +24,10 @@ app.all("*", (req, res, next) => {
 app.use(cookieParser());
 const csrfProtection = csurf({
   cookie: {
-    sameSite: false,
-    secure: true
-  }
+    httpOnly: true,
+    sameSite: 'none',
+    secure: true,
+  },
 });
 app.use(csrfProtection);
 // app.all("*", (req, res, next) => {
