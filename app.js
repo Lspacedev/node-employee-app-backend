@@ -10,16 +10,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: true, //included origin as true
+    origin: "https://timely-lebkuchen-77d271.netlify.app", //included origin as true
     credentials: true,
   })
 );
+app.all("*", (req, res, next) => {
+  console.log(req);
 
+  next();
+});
 app.use(cookieParser());
-const csrfProtection = csurf({ cookie: { key: "XSRF-TOKEN" } });
+const csrfProtection = csurf({
+  cookie: { sameSite: false, secure: true },
+});
 app.use(csrfProtection);
 app.all("*", (req, res, next) => {
-  res.cookie("XSRF-TOKEN", req.csrfToken());
+  res.cookie("XSRF-TOKEN", req.csrfToken(), { sameSite: false, secure: true });
 
   next();
 });
