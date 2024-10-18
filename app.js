@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "https://timely-lebkuchen-77d271.netlify.app", //included origin as true
+    origin: true, //included origin as true
     credentials: true,
   })
 );
