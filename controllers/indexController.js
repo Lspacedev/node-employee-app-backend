@@ -42,7 +42,7 @@ async function postLogin(req, res) {
         };
 
         res.cookie("session", sessionCookie, options);
-       res.end(JSON.stringify({ status: "success" }));
+        res.end(JSON.stringify({ status: "success" }));
       },
       (error) => {
         res.status(401).send("UNAUTHORIZED REQUEST!");
@@ -50,7 +50,11 @@ async function postLogin(req, res) {
     );
 }
 function logout(req, res) {
-  res.clearCookie("session");
+  res.clearCookie("session", {
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+  });
   res.send({ status: "logged out" });
 }
 
