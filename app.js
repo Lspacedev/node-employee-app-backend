@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: true,//included origin as true
+    origin: "true", //included origin as true
     credentials: true,
   })
 );
@@ -25,7 +25,7 @@ app.use(cookieParser());
 const csrfProtection = csurf({
   cookie: {
     httpOnly: true,
-    sameSite: 'none',
+    sameSite: "none",
     secure: true,
   },
 });

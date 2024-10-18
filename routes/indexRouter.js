@@ -4,14 +4,13 @@ const indexController = require("../controllers/indexController");
 const authenticateUser = require("../middleware/authentication");
 
 indexRouter.get("/", (req, res) => {
-  
+  res.cookie("XSRF-TOKEN", req.csrfToken(), {
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+  });
 
-    res.cookie("XSRF-TOKEN", req.csrfToken(),  { httpOnly:true,sameSite: 'none', secure: true});
-
-
-res.send({ csrfToken: req.csrfToken()
-
-   })
+  res.send({ csrfToken: req.csrfToken() });
 });
 indexRouter.post("/register", indexController.postRegister);
 indexRouter.get("/admins", authenticateUser, indexController.getAdmins);
