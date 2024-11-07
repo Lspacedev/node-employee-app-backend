@@ -2,6 +2,7 @@ const { db, admin } = require("../config/firebase-admin");
 const { v4: uuidv4 } = require("uuid");
 
 async function postRegister(req, res) {
+  console.log(req.body);
   const { email, password } = req.body;
   admin
     .auth()
@@ -10,6 +11,8 @@ async function postRegister(req, res) {
       password: password,
     })
     .then(async (userRecord) => {
+      await admin.auth().setCustomUserClaims(userRecord.uid, { admin: true });
+
       const result = await db.collection("users").doc(userRecord.uid).set({
         userId: userRecord.uid,
         email: email,

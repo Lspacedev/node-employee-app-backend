@@ -6,7 +6,15 @@ const authenticateUser = (req, res, next) => {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then((decodedClaims) => {
-      next();
+      if (decodedClaims.admin === true) {
+        // Allow access to requested admin resource.
+        next();
+      } else {
+        return res.status(403).json({
+          message: "You do not have permission to access this resource.",
+        });
+      }
+
       //serveContentForUser("/profile", req, res, decodedClaims);
     })
     .catch((error) => {
