@@ -23,26 +23,17 @@ async function addEmployee(req, res) {
 
   try {
     //upload image and get url
-
-    const resp = await bucket.upload("./tmp/" + req.file.filename, {
-      destination: "profile-pictures/" + req.file.filename,
-      gzip: true,
-      metadata: {
-        cacheControl: "public, max-age=31536000",
-      },
-    });
-    const imageUrl = await resp[0].getSignedUrl({
+    const buffer = req.file.buffer;
+    const extension = req.file.originalname.substring(
+      req.file.originalname.indexOf(".") + 1
+    );
+    const file = bucket.file("profile-pictures/" + id + "." + extension);
+    const resp = await file.save(buffer, {});
+    const imageUrl = await file.getSignedUrl({
       action: "read",
       expires: "03-09-2491",
     });
 
-    // Remove file from /tmp folder after it has been uploaded
-    fs.unlink("./tmp/" + req.file.filename, (err) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-    });
     let data = {
       name,
       surname,
@@ -79,26 +70,18 @@ async function updateEmployee(req, res) {
     try {
       //upload image and get url
 
-      const resp = await bucket.upload("./tmp/" + req.file.filename, {
-        destination: "profile-pictures/" + req.file.filename,
-        gzip: true,
-        metadata: {
-          cacheControl: "public, max-age=31536000",
-        },
-      });
-      const imageUrl = await resp[0].getSignedUrl({
+      const buffer = req.file.buffer;
+      const extension = req.file.originalname.substring(
+        req.file.originalname.indexOf(".") + 1
+      );
+      const file = bucket.file("profile-pictures/" + id + "." + extension);
+      const resp = await file.save(buffer, {});
+      const imageUrl = await file.getSignedUrl({
         action: "read",
         expires: "03-09-2491",
       });
+
       updateObj.pic = imageUrl;
-      // console.log({ imageUrl });
-      // Remove file from /tmp folder after it has been uploaded
-      fs.unlink("./tmp/" + req.file.filename, (err) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-      });
     } catch (err) {}
   }
   if (name !== "" && typeof name !== "undefined") {
