@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: true, //included origin as true
+    origin: true,
     credentials: true,
   })
 );
