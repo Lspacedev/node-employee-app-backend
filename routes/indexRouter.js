@@ -3,7 +3,7 @@ const indexRouter = Router();
 const indexController = require("../controllers/indexController");
 const authenticateUser = require("../middleware/authentication");
 
-indexRouter.get("/tkn", (req, res) => {
+indexRouter.get("/", (req, res) => {
   try {
     res.cookie("XSRF-TOKEN", req.csrfToken(), {
       httpOnly: true,
