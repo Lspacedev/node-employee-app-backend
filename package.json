@@ -10,8 +10,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "csurf": "^1.11.0",
+    "dotenv": "^16.4.5",
     "express": "^4.21.0",
-    "firebase-admin": "^12.6.0"
+    "firebase-admin": "^12.6.0",
+    "multer": "^1.4.5-lts.1",
+    "uuid": "^10.0.0"
   }
 }

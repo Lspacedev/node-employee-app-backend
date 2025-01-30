@@ -1,24 +1,35 @@
 const { Router } = require("express");
 const employeesRouter = Router();
 const employeesController = require("../controllers/employeesController");
-//const upload = require("../middleware/multerUpload");
+const authenticateUser = require("../middleware/authentication");
+const upload = require("../middleware/multerUpload");
 
-employeesRouter.get("/", employeesController.getAllEmployees);
-employeesRouter.get("/:id", employeesController.getEmployeeByID);
+employeesRouter.get("/", authenticateUser, employeesController.getAllEmployees);
+employeesRouter.get(
+  "/:id",
+  authenticateUser,
+  employeesController.getEmployeeByID
+);
 
 employeesRouter.post(
   "/",
-  /*upload.single("profilePic"),*/ employeesController.addEmployee
+  authenticateUser,
+  upload.single("pic"),
+  employeesController.addEmployee
 );
 
 employeesRouter.put(
   "/:id",
-  /*
-  upload.single("profilePic"),*/
+  authenticateUser,
+  upload.single("pic"),
   employeesController.updateEmployee
 );
 
-employeesRouter.delete("/:id", employeesController.deleteEmployee);
+employeesRouter.delete(
+  "/:id",
+  authenticateUser,
+  employeesController.deleteEmployee
+);
 employeesRouter.use("*", (req, res) => {
   res.end("Error, route does not exist");
 });
