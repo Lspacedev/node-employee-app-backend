@@ -1,4 +1,4 @@
-# MERN Employee App | BACKEND
+# Employee App | BACKEND
 
 Node Express Employee API that allows users to add and manage employees.
 
