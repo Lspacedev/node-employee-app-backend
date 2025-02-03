@@ -55,8 +55,6 @@ node app
 API is built using a Node Express server, with Firebase as a database.
 API uses session cookies to authenticate users.
 
-````
-
 #### Employees Router:
 
 - Get all employees.
@@ -81,7 +79,7 @@ Endpoints
     5. GET /employees
     6. GET /employees/id
         Params: id
-````
+```
 
 ## Tech Stack
 
