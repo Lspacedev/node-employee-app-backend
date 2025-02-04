@@ -1,10 +1,10 @@
-# Employee App | BACKEND
+# Employee App | BACKEND - Part One
 
 Node Express Employee API that allows users to add and manage employees.
 
-### Employee App | Frontend
+### Employee App | Frontend - Part One
 
-[https://github.com/Lspacedev/node-employee-app](https://github.com/Lspacedev/node-employee-app)
+[https://github.com/Lspacedev/node-employee-app/tree/part_one](https://github.com/Lspacedev/node-employee-app/tree/part_one)
 
 ## Prerequisites
 
@@ -23,6 +23,14 @@ git@github.com:Lspacedev/node-employee-app-backend.git
 
 ```bash
 cd node-employee-app-backend
+
+```
+
+3. Navigate to the git branch
+
+```bash
+git checkout part_one
+
 ```
 
 3.  Install all dependencies
