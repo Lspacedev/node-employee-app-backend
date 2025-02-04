@@ -1,10 +1,10 @@
-# Employee App | BACKEND
+# Employee App | Backend - Part Two
 
 Node Express Employee API that allows users to add and manage employees.
 
-### Employee App | Frontend
+### Employee App | Frontend - Part Two
 
-[https://github.com/Lspacedev/node-employee-app](https://github.com/Lspacedev/node-employee-app)
+[https://github.com/Lspacedev/node-employee-app/tree/part_two](https://github.com/Lspacedev/node-employee-app/tree/part_two)
 
 ## Prerequisites
 
@@ -25,21 +25,27 @@ git@github.com:Lspacedev/node-employee-app-backend.git
 cd node-employee-app-backend
 ```
 
-3.  Install all dependencies
+3. Navigate to the git branch
+
+```bash
+git checkout part_two
+```
+
+4.  Install all dependencies
 
 ```bash
 npm install
 ```
 
-4. Create an env file and add the following:
+5. Create an env file and add the following:
 
 ```bash
 BUCKET_URL="Firebase storage bucket url"
 
 ```
 
-5. Add a Firebase service account file as: serviceAccount.json
-6. Run the project
+6. Add a Firebase service account file as: serviceAccount.json
+7. Run the project
 
 ```bash
 node app

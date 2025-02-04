@@ -27,7 +27,7 @@ async function postRegister(req, res) {
 async function postLogin(req, res) {
   const idToken = req.body.idToken.toString();
 
-  const expiresIn = 60 * 5 * 1000;
+  const expiresIn = 60 * 30 * 1000;
 
   admin
     .auth()
