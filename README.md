@@ -46,9 +46,11 @@ BUCKET_URL="Firebase storage bucket url"
 
 ```
 
-5. Add a Firebase service account file as: serviceAccount.json
+5. Create tmp folder.
 
-6. Run the project
+6. Add a Firebase service account file as: serviceAccount.json
+
+7. Run the project
 
 ```bash
 node app
