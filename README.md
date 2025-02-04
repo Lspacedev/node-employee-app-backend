@@ -47,6 +47,7 @@ BUCKET_URL="Firebase storage bucket url"
 ```
 
 5. Add a Firebase service account file as: serviceAccount.json
+
 6. Run the project
 
 ```bash
