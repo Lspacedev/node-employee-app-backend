@@ -1,4 +1,4 @@
-# Employee App | BACKEND - Part One
+# Employee App | Backend - Part One
 
 Node Express Employee API that allows users to add and manage employees.
 
